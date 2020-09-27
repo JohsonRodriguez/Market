@@ -5,26 +5,25 @@ import javax.persistence.*;
 @Entity
 @Table(name="PRODUCTOS") //nombre tal como está en la tabla de la base de datos
 public class Producto {
+
     @Id // porque es llave primaria
     @GeneratedValue(strategy = GenerationType.IDENTITY)//Para que cada registro se autoincremente en la llave primaria
     @Column(name = "id_producto")//Si el nombre de la tabla no es igual al de la variable colocar colum con el nombre real
     private Integer idProducto;
-
     private String nombre;
-
     @Column(name = "id_categoria")
     private Integer idCategoria;
-
     @Column(name = "codigo_barras")
     private String codigoBarras;
-
     @Column(name = "precio_venta")
     private Double precioVenta;
-
     @Column(name = "cantidad_stock")
     private Integer cantidadStock;
-
     private boolean estado;
+
+    @ManyToOne//relacion muchos a pocos
+    @JoinColumn(name = "id_categoria", insertable = false, updatable = false)//campo de relacion qu eimpide insertar y actualizar
+    private Categoria categoria;//Tabla de productos relacionada con tabla categoria
 
     public Integer getIdProducto() {
         return idProducto;
